@@ -4,6 +4,7 @@ author:
   - 'Hiroyuki Akabane <hirobanex@gmail.com>'
 build_requires:
   File::Which: 0
+  File::pushd: 0
   HTTP::Request::Common: 0
   Test::More: 0.98
   Test::Output: 1.02
@@ -31,17 +32,17 @@ no_index:
 provides:
   OrePAN2::Server:
     file: lib/OrePAN2/Server.pm
-    version: 0.02
+    version: 0.03
   OrePAN2::Server::CLI:
     file: lib/OrePAN2/Server/CLI.pm
 requires:
-  OrePAN2: 0.15
+  OrePAN2: 0.16
   Plack: 0
   perl: 5.008001
 resources:
   bugtracker: https://github.com/hirobanex/p5-OrePAN2-Server/issues
   homepage: https://github.com/hirobanex/p5-OrePAN2-Server
   repository: git://github.com/hirobanex/p5-OrePAN2-Server.git
-version: 0.02
+version: 0.03
 x_contributors:
   - 'Songmu <y.songmu@gmail.com>'

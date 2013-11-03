@@ -9,6 +9,8 @@ OrePAN2::Server - DarkPAN Server
 
     #upload git managed module to my orepan2 by curl 
     curl --data-urlencode 'module=git@github.com:Songmu/p5-App-RunCron.git' --data-urlencode 'author=SONGMU' http://localhost:5888/
+    curl --data-urlencode 'module=git+ssh://git@mygit/home/git/repos/MyModule.git' --data-urlencode 'author=SONGMU' http://localhost:5888/
+    curl --data-urlencode 'module=git+file:///home/hirobanex/project/MyModule.git' --data-urlencode 'author=SONGMU' http://localhost:5888/
 
     #install by cpanm
     cpanm --mirror=http://localhost:5888/orepan Your::Module
@@ -18,11 +20,13 @@ OrePAN2::Server - DarkPAN Server
 
 # DESCRIPTION
 
-OrePAN2::Server is DarkPAN server, or [OrePAN2](http://search.cpan.org/perldoc?OrePAN2) uploader that use api interface provided by OrePAN2.
+OrePAN2::Server is DarkPAN server, or [OrePAN2](http://search.cpan.org/perldoc?OrePAN2) Uploader that use API provided by OrePAN2.
 
 Like uploading to cpan, you can upload to your DarkPAN by http post request.
 
-If you set your DarkPAN url in options([cpanm](http://search.cpan.org/perldoc?cpanm) --mirror, [carton](http://search.cpan.org/perldoc?carton) PERL\_CARTON\_MIRROR env), you can easily install and manage your modules in your project.
+If you set your DarkPAN url in options([cpanm](http://search.cpan.org/perldoc?cpanm) --mirror, [carton](http://search.cpan.org/perldoc?carton)  PERL\_CARTON\_MIRROR), you can easily install and manage your modules in your project.
+
+You should set up DarkPAN in private space. If you upload your modules to DarkPAN on public space, you consider to upload your modules to cpan. 
 
 # USAGE
 
@@ -48,7 +52,7 @@ See [orepan2-server.pl](http://search.cpan.org/perldoc?orepan2-server.pl)
         mount '/orepan' => $orepan->app;
     };
 
-If your need only DarkPAN uploader, you code this.
+If your need only DarkPAN Uploader and add Basic Auth with `Plack::Middleware::Auth::Basic`, you code this.
 
     use Plack::Builder;
     use OrePAN2::Server;
@@ -61,7 +65,10 @@ If your need only DarkPAN uploader, you code this.
 
     builder {
         mount '/'            => Your::App->to_app();
-        mount '/authenquery' => $orepan_uploader;
+        mount '/authenquery' => builder {
+            enable "Auth::Basic", authenticator => sub { return ($_[0] eq 'userid' && $_[1] eq 'password') };
+            $orepan_uploader;
+        }
     };
 
 

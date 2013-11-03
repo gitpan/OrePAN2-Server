@@ -3,7 +3,7 @@ use 5.008001;
 use strict;
 use warnings;
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 
 use File::Copy ();
 use File::Spec;
@@ -56,8 +56,9 @@ sub uploader {
                 warn $err . '';
                 return [500, [], [$err.'']];
             }
-        }else{
-            return [400,[],['Bad Request']];               
+        }
+        else {
+            return [405, [], ['Method Not Allowed']];
         }
 
         return [200, [], ['OK']];
@@ -81,6 +82,8 @@ OrePAN2::Server - DarkPAN Server
 
     #upload git managed module to my orepan2 by curl 
     curl --data-urlencode 'module=git@github.com:Songmu/p5-App-RunCron.git' --data-urlencode 'author=SONGMU' http://localhost:5888/
+    curl --data-urlencode 'module=git+ssh://git@mygit/home/git/repos/MyModule.git' --data-urlencode 'author=SONGMU' http://localhost:5888/
+    curl --data-urlencode 'module=git+file:///home/hirobanex/project/MyModule.git' --data-urlencode 'author=SONGMU' http://localhost:5888/
 
     #install by cpanm
     cpanm --mirror=http://localhost:5888/orepan Your::Module
@@ -90,11 +93,13 @@ OrePAN2::Server - DarkPAN Server
 
 =head1 DESCRIPTION
 
-OrePAN2::Server is DarkPAN server, or L<OrePAN2> uploader that use api interface provided by OrePAN2.
+OrePAN2::Server is DarkPAN server, or L<OrePAN2> Uploader that use API provided by OrePAN2.
 
 Like uploading to cpan, you can upload to your DarkPAN by http post request.
 
-If you set your DarkPAN url in options(L<cpanm> --mirror, L<carton> PERL_CARTON_MIRROR env), you can easily install and manage your modules in your project.
+If you set your DarkPAN url in options(L<cpanm> --mirror, L<carton>  PERL_CARTON_MIRROR), you can easily install and manage your modules in your project.
+
+You should set up DarkPAN in private space. If you upload your modules to DarkPAN on public space, you consider to upload your modules to cpan. 
 
 =head1 USAGE
 
@@ -120,7 +125,7 @@ See L<orepan2-server.pl>
         mount '/orepan' => $orepan->app;
     };
 
-If your need only DarkPAN uploader, you code this.
+If your need only DarkPAN Uploader and add Basic Auth with C<Plack::Middleware::Auth::Basic>, you code this.
 
     use Plack::Builder;
     use OrePAN2::Server;
@@ -133,7 +138,10 @@ If your need only DarkPAN uploader, you code this.
 
     builder {
         mount '/'            => Your::App->to_app();
-        mount '/authenquery' => $orepan_uploader;
+        mount '/authenquery' => builder {
+            enable "Auth::Basic", authenticator => sub { return ($_[0] eq 'userid' && $_[1] eq 'password') };
+            $orepan_uploader;
+        }
     };
 
 
@@ -174,6 +182,8 @@ it under the same terms as Perl itself.
 Hiroyuki Akabane E<lt>hirobanex@gmail.comE<gt>
 
 Songmu E<lt>y.songmu@gmail.comE<gt>
+
+=for stopwords OrePAN DarkPAN
 
 =cut
 
