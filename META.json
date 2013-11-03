@@ -1,5 +1,5 @@
 {
-   "abstract" : "DarkAPN Server",
+   "abstract" : "DarkPAN Server",
    "author" : [
       "Hiroyuki Akabane <hirobanex@gmail.com>"
    ],
@@ -60,7 +60,7 @@
    "provides" : {
       "OrePAN2::Server" : {
          "file" : "lib/OrePAN2/Server.pm",
-         "version" : "0.01"
+         "version" : "0.02"
       },
       "OrePAN2::Server::CLI" : {
          "file" : "lib/OrePAN2/Server/CLI.pm"
@@ -77,7 +77,7 @@
          "web" : "https://github.com/hirobanex/p5-OrePAN2-Server"
       }
    },
-   "version" : "0.01",
+   "version" : "0.02",
    "x_contributors" : [
       "Songmu <y.songmu@gmail.com>"
    ]

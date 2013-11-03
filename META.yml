@@ -1,5 +1,5 @@
 ---
-abstract: 'DarkAPN Server'
+abstract: 'DarkPAN Server'
 author:
   - 'Hiroyuki Akabane <hirobanex@gmail.com>'
 build_requires:
@@ -31,7 +31,7 @@ no_index:
 provides:
   OrePAN2::Server:
     file: lib/OrePAN2/Server.pm
-    version: 0.01
+    version: 0.02
   OrePAN2::Server::CLI:
     file: lib/OrePAN2/Server/CLI.pm
 requires:
@@ -42,6 +42,6 @@ resources:
   bugtracker: https://github.com/hirobanex/p5-OrePAN2-Server/issues
   homepage: https://github.com/hirobanex/p5-OrePAN2-Server
   repository: git://github.com/hirobanex/p5-OrePAN2-Server.git
-version: 0.01
+version: 0.02
 x_contributors:
   - 'Songmu <y.songmu@gmail.com>'

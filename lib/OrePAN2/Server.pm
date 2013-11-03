@@ -3,7 +3,7 @@ use 5.008001;
 use strict;
 use warnings;
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 use File::Copy ();
 use File::Spec;
@@ -72,7 +72,7 @@ __END__
 
 =head1 NAME
 
-OrePAN2::Server - DarkAPN Server
+OrePAN2::Server - DarkPAN Server
 
 =head1 SYNOPSIS
 
