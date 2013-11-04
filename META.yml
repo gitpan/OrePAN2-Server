@@ -32,7 +32,7 @@ no_index:
 provides:
   OrePAN2::Server:
     file: lib/OrePAN2/Server.pm
-    version: 0.03
+    version: 0.04
   OrePAN2::Server::CLI:
     file: lib/OrePAN2/Server/CLI.pm
 requires:
@@ -43,6 +43,6 @@ resources:
   bugtracker: https://github.com/hirobanex/p5-OrePAN2-Server/issues
   homepage: https://github.com/hirobanex/p5-OrePAN2-Server
   repository: git://github.com/hirobanex/p5-OrePAN2-Server.git
-version: 0.03
+version: 0.04
 x_contributors:
   - 'Songmu <y.songmu@gmail.com>'
